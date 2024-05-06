@@ -1,14 +1,9 @@
 {
     "name": "Kokodoki Organization Workflow",
     "description": "Kokodoki Organization starter workflow.",
-    "iconName": "example-icon",
+    "iconName": "octicon logo-github",
     "categories": [
         "Java",
         "Maven"
-    ],
-    "filePatterns": [
-        "pom.xml$",
-        "^Dockerfile",
-        ".*\\.md$"
     ]
 }
