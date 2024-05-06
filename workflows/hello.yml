@@ -1,0 +1,19 @@
+name: Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      input-test:
+        description: Input de prueba
+        required: true
+        type: string
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Tests
+      run: |
+        echo Hola Mundo
