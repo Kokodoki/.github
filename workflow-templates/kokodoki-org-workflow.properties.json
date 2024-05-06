@@ -1,0 +1,14 @@
+{
+    "name": "Kokodoki Organization Workflow",
+    "description": "Kokodoki Organization starter workflow.",
+    "iconName": "example-icon",
+    "categories": [
+        "Java",
+        "Maven"
+    ],
+    "filePatterns": [
+        "pom.xml$",
+        "^Dockerfile",
+        ".*\\.md$"
+    ]
+}
