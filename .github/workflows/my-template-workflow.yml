@@ -1,0 +1,16 @@
+name: Kokodoki Workflows
+
+on:
+  push:
+    branches: [ $default-branch ]
+  pull_request:
+    branches: [ $default-branch ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Hello
+        run: echo Hello from workflows
