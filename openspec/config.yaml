@@ -1,0 +1,73 @@
+schema: spec-driven
+
+context: |
+  Este es el repositorio especial `.github` de la organización en GitHub.
+  Actúa como repositorio central de configuraciones por defecto para toda la organización.
+
+  ## Propósito principal
+  Contiene reusable workflows de GitHub Actions ubicados en `.github/workflows/`.
+  Estos workflows son consumidos por otros repositorios de la organización mediante la
+  sintaxis `uses: <org>/.github/.github/workflows/<workflow>.yml@<ref>`.
+
+  ## Estructura de cada reusable workflow
+  Cada reusable workflow DEBE acompañarse de:
+  1. **Documentación** en `/docs/<nombre-del-workflow>.md` explicando:
+     - Propósito del workflow
+     - Cómo consumirlo (ejemplo de uso)
+     - Descripción de cada job y sus steps
+     - Inputs, outputs y secrets disponibles
+  2. **Workflow template** siguiendo las convenciones de GitHub:
+     - Archivo de template en `/workflow-templates/<nombre>.yml`
+     - Archivo de metadatos en `/workflow-templates/<nombre>.properties.json`
+     - Referencia: https://docs.github.com/en/actions/how-tos/reuse-automations/create-workflow-templates
+
+  ## Convenciones de nomenclatura
+  - Usar **kebab-case** para nombrar: inputs, outputs y secrets de los reusable workflows.
+    Ejemplo: `node-version`, `registry-url`, `deploy-token`
+  - Los archivos de workflow se nombran en kebab-case y **deben iniciar con un prefijo
+    que indique la acción que realizan**, seguido de un descriptor del contexto o tecnología.
+    Prefijos permitidos: `build`, `scan`, `deploy`, `notify`, `check`, `test`, `infra`
+    Ejemplos: `build-docker.yml`, `scan-sonar.yml`, `deploy-ecr.yml`, `notify-slack.yml`,
+    `check-lint.yml`, `test-integration.yml`, `infra-terraform.yml`
+
+  ## Control de versiones
+  - Se usa **Conventional Commits** con mensajes en **español**.
+  - El scope indica el reusable workflow modificado (nombre del archivo sin extensión).
+  - Formato: `<tipo>(<scope>): <descripción en español>`
+  - Tipos permitidos: feat, fix, docs, chore, refactor, ci, test
+  - Ejemplos:
+    - `feat(build-docker): agregar soporte para Node.js 22`
+    - `fix(deploy-ecr): corregir publicación de imagen en región us-east-1`
+    - `docs(build-docker): actualizar documentación de inputs`
+
+  ## Plataforma
+  GitHub Actions — YAML, sintaxis de reusable workflows con `on: workflow_call`.
+  Todos los archivos YAML deben crearse con la extensión `.yml` (no `.yaml`).
+
+rules:
+  proposal:
+    - Incluir siempre la lista de inputs, outputs y secrets del workflow con su tipo y descripción
+    - Indicar qué repositorios o casos de uso se benefician del workflow
+    - Documentar las dependencias externas (actions de terceros, herramientas requeridas)
+    - Definir si el workflow requiere secrets a nivel de organización o repositorio
+  design:
+    - Diseñar el workflow con jobs reutilizables y con responsabilidad única
+    - Definir la estructura del archivo de documentación en /docs/
+    - Definir la estructura del workflow template (.properties.json y .yml)
+    - Los archivos .yml de workflow-templates deben usar `$default-branch` únicamente en
+      los triggers `on.push.branches` y `on.pull_request.branches`. Ejemplo
+      `on.push.branches [ $default-branch ]`
+    - La referencia al reusable workflow en `uses` debe apuntar siempre al último tag
+      generado, nunca a un branch ni a un SHA. Ejemplo
+      `<org>/.github/.github/workflows/build-docker.yml@<v1>`
+    - Todos los inputs, outputs y secrets deben nombrarse en kebab-case
+    - Siempre usar la versión más reciente de cada action referenciando el tag flotante
+      mayor (por ejemplo, actions/checkout@v6).
+      Nunca usar SHAs ni omitir la versión
+    - Incluir ejemplos de uso del workflow en la documentación
+  tasks:
+    - Crear una tarea para el archivo del reusable workflow en .github/workflows/
+    - Crear una tarea separada para la documentación del workflow en /docs/
+    - Crear una tarea separada para el workflow template en /workflow-templates/
+    - Los mensajes de commit de cada tarea deben seguir Conventional Commits en español
+      con el scope del reusable workflow afectado
