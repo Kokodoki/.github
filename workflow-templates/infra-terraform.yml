@@ -1,0 +1,22 @@
+name: Infra Terraform
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  terraform:
+    uses: ${{ github.repository_owner }}/.github/.github/workflows/infra-terraform.yml@<v1>
+    with:
+      aws-region: us-east-1
+      environment-name: production
+      # working-directory: infra/
+      # terraform-version: "1.9.0"
+      # backend-config: -backend-config=bucket=my-tfstate -backend-config=key=prod/terraform.tfstate
+      # aws-role-to-assume: arn:aws:iam::123456789012:role/GitHubActionsRole
+    secrets:
+      # Dejar vacíos si se usa OIDC puro (sin credenciales estáticas)
+      # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
