@@ -78,8 +78,8 @@ Ninguno.
 
 | Step | Comando | Descripción |
 |---|---|---|
-| Checkout | `actions/checkout@v4` | Descarga el código del repositorio consumidor |
-| Setup Terraform | `hashicorp/setup-terraform@v3` | Instala la versión indicada de Terraform |
+| Checkout | `actions/checkout@v6` | Descarga el código del repositorio consumidor |
+| Setup Terraform | `hashicorp/setup-terraform@v4` | Instala la versión indicada de Terraform |
 | Format check | `terraform fmt -check -recursive` | Falla si algún archivo `.tf` no cumple el formato estándar |
 | Init (sin backend) | `terraform init -backend=false` | Descarga providers localmente sin inicializar el backend remoto |
 | Validate | `terraform validate` | Valida la sintaxis y consistencia de la configuración |

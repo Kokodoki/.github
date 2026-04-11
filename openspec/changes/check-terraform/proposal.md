@@ -23,6 +23,6 @@ Los equipos de la organización gestionan infraestructura con Terraform usando d
 - **Inputs opcionales:** `terraform-version`, `working-directory`
 - **Outputs:** ninguno
 - **Secrets requeridos:** ninguno
-- **Dependencias externas:** `actions/checkout@v4`, `hashicorp/setup-terraform@v3`
+- **Dependencias externas:** `actions/checkout@v6`, `hashicorp/setup-terraform@v4`
 - **Repositorios beneficiados:** cualquier repositorio de la organización que gestione infraestructura con Terraform, independientemente del proveedor cloud utilizado
 - **Requisito previo:** los módulos o providers referenciados deben poder descargarse (o el directorio debe ser auto-suficiente), aunque el backend no se inicializa

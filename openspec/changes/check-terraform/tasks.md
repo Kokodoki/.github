@@ -1,6 +1,6 @@
 ## 1. Reusable Workflow
 
-- [ ] 1.1 Crear `.github/workflows/check-terraform.yml` con el job `validate`, inputs en kebab-case (`terraform-version`, `working-directory`), steps: checkout con `actions/checkout@v4`, setup con `hashicorp/setup-terraform@v3`, `terraform fmt -check -recursive`, `terraform init -backend=false` y `terraform validate`. Sin secrets ni autenticación de proveedor.
+- [ ] 1.1 Crear `.github/workflows/check-terraform.yml` con el job `validate`, inputs en kebab-case (`terraform-version`, `working-directory`), steps: checkout con `actions/checkout@v6`, setup con `hashicorp/setup-terraform@v4`, `terraform fmt -check -recursive`, `terraform init -backend=false` y `terraform validate`. Sin secrets ni autenticación de proveedor.
   Commit: `feat(check-terraform): agregar reusable workflow de check de formato y validación de terraform`
 
 ## 2. Documentación
