@@ -1,0 +1,14 @@
+name: Check Terraform
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  check:
+    uses: ${{ github.repository_owner }}/.github/.github/workflows/check-terraform.yml@<v1>
+    with:
+      # working-directory: infra/
+      # terraform-version: "1.9.0"

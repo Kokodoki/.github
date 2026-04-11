@@ -1,0 +1,13 @@
+{
+  "name": "Check Terraform",
+  "description": "Reusable workflow para verificar el formato y la validez sintáctica de archivos Terraform. Agnóstico al proveedor cloud, no requiere credenciales ni backend remoto.",
+  "iconName": "octicon workflow",
+  "categories": [
+    "Continuous Integration",
+    "Infrastructure",
+    "Terraform"
+  ],
+  "filePatterns": [
+    "*.tf"
+  ]
+}
