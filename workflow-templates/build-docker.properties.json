@@ -1,0 +1,16 @@
+{
+  "name": "Build Docker",
+  "description": "Reusable workflow para construir imágenes Docker y publicarlas en Amazon ECR con push condicional y gate de aprobación mediante GitHub Environments.",
+  "iconName": "octicon workflow",
+  "categories": [
+    "Deployment",
+    "Docker",
+    "AWS",
+    "ECR"
+  ],
+  "filePatterns": [
+    "Dockerfile",
+    "Dockerfile.*",
+    "*.dockerfile"
+  ]
+}

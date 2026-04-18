@@ -1,0 +1,27 @@
+name: Build Docker
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  docker:
+    uses: ${{ github.repository_owner }}/.github/.github/workflows/build-docker.yml@<v1>
+    with:
+      aws-region: us-east-1
+      ecr-repository: my-app
+      environment-name: production
+      enable-push: ${{ github.event_name == 'push' }}
+      # image-tag: "1.0.0"
+      # dockerfile: Dockerfile
+      # context: .
+      # build-args: |
+      #   NODE_VERSION=20
+      #   APP_ENV=production
+      # aws-role-to-assume: arn:aws:iam::123456789012:role/GitHubActionsRole
+    secrets:
+      # Dejar vacíos si se usa OIDC puro (sin credenciales estáticas)
+      # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
