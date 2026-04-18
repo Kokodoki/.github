@@ -1,0 +1,10 @@
+{
+  "name": "Build Docker",
+  "description": "Reusable workflow para construir y publicar imágenes Docker en Amazon ECR. Incluye autenticación en AWS mediante OIDC o credenciales estáticas.",
+  "iconName": "octicon workflow",
+  "categories": [
+    "Continuous integration",
+    "Docker",
+    "AWS"
+  ]
+}

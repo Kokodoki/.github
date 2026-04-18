@@ -1,0 +1,97 @@
+name: Build Docker
+
+on:
+  workflow_call:
+    inputs:
+      aws-region:
+        description: Región de AWS donde está el repositorio ECR
+        type: string
+        required: true
+      ecr-repository:
+        description: Nombre del repositorio ECR (sin el prefijo de cuenta ni región)
+        type: string
+        required: true
+      image-tag:
+        description: Tag de la imagen Docker a construir
+        type: string
+        required: false
+        default: ${{ github.sha }}
+      dockerfile:
+        description: Ruta al Dockerfile relativa a la raíz del repositorio
+        type: string
+        required: false
+        default: Dockerfile
+      build-context:
+        description: Contexto de build de Docker
+        type: string
+        required: false
+        default: .
+      build-args:
+        description: Build args adicionales en formato KEY=VALUE separados por saltos de línea
+        type: string
+        required: false
+        default: ""
+      aws-role-to-assume:
+        description: ARN del IAM Role a asumir tras la autenticación base (compatible con OIDC y credenciales estáticas)
+        type: string
+        required: false
+        default: ""
+    secrets:
+      aws-access-key-id:
+        description: AWS Access Key ID para autenticación con credenciales estáticas
+        required: false
+      aws-secret-access-key:
+        description: AWS Secret Access Key para autenticación con credenciales estáticas
+        required: false
+    outputs:
+      image-uri:
+        description: URI completa de la imagen publicada en ECR (incluye tag)
+        value: ${{ jobs.build.outputs.image-uri }}
+      image-digest:
+        description: Digest SHA256 de la imagen publicada
+        value: ${{ jobs.build.outputs.image-digest }}
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    outputs:
+      image-uri: ${{ steps.set-outputs.outputs.image-uri }}
+      image-digest: ${{ steps.build-push.outputs.digest }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-region: ${{ inputs.aws-region }}
+          role-to-assume: ${{ inputs.aws-role-to-assume }}
+          aws-access-key-id: ${{ secrets.aws-access-key-id }}
+          aws-secret-access-key: ${{ secrets.aws-secret-access-key }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and push Docker image
+        id: build-push
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ inputs.build-context }}
+          file: ${{ inputs.dockerfile }}
+          push: true
+          tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.image-tag }}
+          build-args: ${{ inputs.build-args }}
+
+      - name: Set image URI output
+        id: set-outputs
+        run: |
+          echo "image-uri=${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.image-tag }}" >> $GITHUB_OUTPUT
