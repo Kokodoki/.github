@@ -1,5 +1,5 @@
 ---
-name: 📄 OpenSpec
+name: 📄 OpenSpec - Orchestrator
 description: "Agente principal de OpenSpec. Detecta automáticamente la fase que necesita el usuario y delega al agente especializado correspondiente. Usa cuando: openspec; /opsx; spec-driven development; quiero explorar / proponer / implementar / archivar un cambio."
 tools: [execute, read, agent]
 agents:
