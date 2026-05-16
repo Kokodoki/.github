@@ -219,7 +219,7 @@ jobs:
         run: terraform init ${{ inputs.backend-config }}
 
       - name: Download tfplan artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v4.1.3
         with:
           name: tfplan-${{ github.run_id }}
           path: ${{ inputs.working-directory }}
