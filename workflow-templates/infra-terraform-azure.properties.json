@@ -1,0 +1,14 @@
+{
+  "name": "Infra Terraform Azure",
+  "description": "Reusable workflow para crear infraestructura con Terraform en Azure. Incluye jobs de validate, plan y apply con gate de aprobación manual.",
+  "iconName": "octicon workflow",
+  "categories": [
+    "Deployment",
+    "Infrastructure",
+    "Terraform",
+    "Azure"
+  ],
+  "filePatterns": [
+    "*.tf"
+  ]
+}

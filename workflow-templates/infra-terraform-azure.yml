@@ -1,0 +1,25 @@
+name: Infra Terraform Azure
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  terraform:
+    uses: ${{ github.repository_owner }}/.github/.github/workflows/infra-terraform-azure.yml@v1
+    with:
+      environment-name: production
+      backend-resource-group-name: rg-terraform-state
+      backend-storage-account-name: mystorageaccount
+      backend-container-name: tfstate
+      backend-key: prod/terraform.tfstate
+      # working-directory: infra/
+      # terraform-version: "1.9.0"
+      # enable-apply: true
+    secrets:
+      azure-client-id: ${{ secrets.AZURE_CLIENT_ID }}
+      azure-tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+      azure-subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      # azure-client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}  # Solo para Service Principal; omitir para OIDC
