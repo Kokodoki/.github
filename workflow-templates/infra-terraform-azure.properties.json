@@ -1,0 +1,6 @@
+{
+  "name": "Infraestructura Azure (Terraform)",
+  "description": "Ejecuta el ciclo completo de Terraform sobre Azure: validación, plan con comentario en PR y apply con aprobación manual via GitHub Environments. Usa OIDC para autenticarse sin secretos de larga duración.",
+  "iconName": "octicon-terminal",
+  "categories": ["Deployment", "Azure", "Terraform", "Infrastructure"]
+}
