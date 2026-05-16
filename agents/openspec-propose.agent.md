@@ -1,8 +1,7 @@
 ---
 name: 📝 OpenSpec — Propose
 description: "Agente especializado exclusivamente en crear propuestas de cambio con OpenSpec. Usa cuando: el usuario quiere proponer, diseñar o planificar un nuevo cambio; crear propuesta, diseño, specs y tasks; usar /opsx:propose; proponer funcionalidad; nuevo cambio openspec."
-tools: [execute, read, edit, search, todo, agent]
-agents: ["⚙️ OpenSpec — Apply"]
+tools: [execute, read, edit, search, todo]
 handoffs:
   - label: Explorar antes de proponer
     agent: 🔍 OpenSpec — Explore
