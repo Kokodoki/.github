@@ -1,0 +1,24 @@
+name: Infra Terraform Azure
+
+on:
+  push:
+    branches: [$default-branch]
+  pull_request:
+    branches: [$default-branch]
+
+jobs:
+  terraform:
+    uses: ${{ github.repository_owner }}/.github/.github/workflows/infra-terraform-azure.yml@v1
+    with:
+      azure-client-id: ${{ vars.AZURE_CLIENT_ID }}
+      azure-tenant-id: ${{ vars.AZURE_TENANT_ID }}
+      azure-subscription-id: ${{ vars.AZURE_SUBSCRIPTION_ID }}
+      environment-name: production
+      # working-directory: infra/
+      # terraform-version: "1.9.0"
+      # backend-config: >-
+      #   -backend-config=resource_group_name=rg-tfstate
+      #   -backend-config=storage_account_name=sttfstate
+      #   -backend-config=container_name=tfstate
+      #   -backend-config=key=prod/terraform.tfstate
+      # enable-apply: ${{ github.ref == 'refs/heads/main' }}
